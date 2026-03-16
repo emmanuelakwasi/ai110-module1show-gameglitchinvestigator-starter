@@ -28,6 +28,7 @@ def parse_guess(raw: str):
 
     return True, value, None
 
+# FIX ME: LOGIC BREAKS HERE.
 
 def check_guess(guess, secret):
     if guess == secret:
