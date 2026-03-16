@@ -4,8 +4,11 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
+
+- What did the game look like the first time you ran it? just a normal guessing game. 
+
 - List at least two concrete bugs you noticed at the start  
+The Submit Hint is not working as it is supposed to be. Whenever I change the Difficulty to easy or medium or hard, New Game always show You already won. Start a new game to play again. New Game is supposed to clear the Enter your guess search box, it doesn't happen. I need to refresh link before everything works again. 
   (for example: "the secret number kept changing" or "the hints were backwards").
 
 ---
@@ -13,6 +16,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+Gemini
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
