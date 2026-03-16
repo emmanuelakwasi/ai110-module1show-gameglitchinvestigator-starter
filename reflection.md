@@ -7,9 +7,11 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 - What did the game look like the first time you ran it? just a normal guessing game. 
 
-- List at least two concrete bugs you noticed at the start  
-The Submit Hint is not working as it is supposed to be. Whenever I change the Difficulty to easy or medium or hard, New Game always show You already won. Start a new game to play again. New Game is supposed to clear the Enter your guess search box, it doesn't happen. I need to refresh link before everything works again. 
-  (for example: "the secret number kept changing" or "the hints were backwards").
+The Submit Hint button does not work as expected. After selecting a difficulty level (Easy, Medium, or Hard) and clicking New Game, the system immediately displays the message “You already won. Start a new game to play again.” even though a new game should have started.
+
+The hint logic is reversed. For example, when the secret number is 10 and a player enters 12, the game displays “Higher” instead of “Lower.” Since 12 is greater than the secret number, the correct hint should be “Lower.” The same issue happens in reverse situations as well.
+
+After entering a guess, pressing the Enter key should submit the guess just like clicking the Submit Guess button. Currently, the Enter key does not trigger the guess submission, so the user is forced to click the button.
 
 ---
 
