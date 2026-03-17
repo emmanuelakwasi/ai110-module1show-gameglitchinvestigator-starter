@@ -105,11 +105,11 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# Track submits so we only process a guess once per form submission.
-if "submit_count" not in st.session_state:
-    st.session_state.submit_count = 0
-if "last_processed_submit_count" not in st.session_state:
-    st.session_state.last_processed_submit_count = 0
+# Keep the last hint message so it persists across reruns.
+if "last_hint" not in st.session_state:
+    st.session_state.last_hint = ""
+
+# Track when the guess form was submitted (so we can clear the input afterward)
 if "clear_input_after_submit" not in st.session_state:
     st.session_state.clear_input_after_submit = False
 
@@ -164,14 +164,8 @@ if st.session_state.status != "playing":
     else:
         st.error("Game over. Start a new game to try again.")
     st.stop()
-# Process one submitted guess per form submit (prevents repeated feedback on rerun)
+# Process the guess once per form submit.
 if submit:
-    st.session_state.submit_count += 1
-
-# Only run the game logic when we see a new submit count.
-if st.session_state.submit_count != st.session_state.last_processed_submit_count:
-    st.session_state.last_processed_submit_count = st.session_state.submit_count
-
     st.session_state.attempts += 1
 
     ok, guess_int, err = parse_guess(raw_guess)
@@ -188,9 +182,7 @@ if st.session_state.submit_count != st.session_state.last_processed_submit_count
             secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
-
-        if show_hint:
-            st.warning(message)
+        st.session_state.last_hint = message
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -216,6 +208,10 @@ if st.session_state.submit_count != st.session_state.last_processed_submit_count
 
     # Clear the input field on the next rerun.
     st.session_state.clear_input_after_submit = True
+
+# Show the last hint persistently (even after reruns).
+if show_hint and st.session_state.last_hint:
+    st.warning(st.session_state.last_hint)
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
