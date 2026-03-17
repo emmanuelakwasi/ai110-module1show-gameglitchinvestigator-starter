@@ -144,7 +144,7 @@ if st.session_state.status != "playing":
     else:
         st.error("Game over. Start a new game to try again.")
     st.stop()
-
+# fix: clearing number after a submit.
 if submit:
     st.session_state.attempts += 1
 
@@ -187,6 +187,9 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+    
+    # Clear the input field after submission
+    st.session_state[f"guess_input_{difficulty}"] = ""
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
