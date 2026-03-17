@@ -22,14 +22,19 @@ Gemini
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
+- I used Gemini as a teammate throughout this project to help fix the bugs and improve the overall code. 
+
+- Gemini suggested issue with "NewGame" buttton. 
+
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+- I decided a bug was really fixed when the app behaved correctly in the UI for the same scenario that was previously failing and the behavior stayed consistent across multiple reruns.
+
+- I ran a manual test in the Streamlit app where I submitted guesses and confirmed the feedback shown (too high/too low), that the attempt counter advanced, and that the hint persisted after reruns. 
+
+- Yes — AI helped me understand how Streamlit reruns work and why state can appear to “reset,” which guided me to write a test that checks for persistent hint output rather than relying on a single render.
 
 ---
 
