@@ -105,6 +105,26 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+# Track submits so we only process a guess once per form submission.
+if "submit_count" not in st.session_state:
+    st.session_state.submit_count = 0
+if "last_processed_submit_count" not in st.session_state:
+    st.session_state.last_processed_submit_count = 0
+if "clear_input_after_submit" not in st.session_state:
+    st.session_state.clear_input_after_submit = False
+
+if "guess_input_Easy" not in st.session_state:
+    st.session_state.guess_input_Easy = ""
+if "guess_input_Normal" not in st.session_state:
+    st.session_state.guess_input_Normal = ""
+if "guess_input_Hard" not in st.session_state:
+    st.session_state.guess_input_Hard = ""  
+
+# Clear the guess input once immediately after a submission (before the input widget is created)
+if st.session_state.clear_input_after_submit:
+    st.session_state[f"guess_input_{difficulty}"] = ""
+    st.session_state.clear_input_after_submit = False
+
 st.subheader("Make a guess")
 
 st.info(
@@ -144,8 +164,14 @@ if st.session_state.status != "playing":
     else:
         st.error("Game over. Start a new game to try again.")
     st.stop()
-# fix: clearing number after a submit.
+# Process one submitted guess per form submit (prevents repeated feedback on rerun)
 if submit:
+    st.session_state.submit_count += 1
+
+# Only run the game logic when we see a new submit count.
+if st.session_state.submit_count != st.session_state.last_processed_submit_count:
+    st.session_state.last_processed_submit_count = st.session_state.submit_count
+
     st.session_state.attempts += 1
 
     ok, guess_int, err = parse_guess(raw_guess)
@@ -187,9 +213,9 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
-    
-    # Clear the input field after submission
-    st.session_state[f"guess_input_{difficulty}"] = ""
+
+    # Clear the input field on the next rerun.
+    st.session_state.clear_input_after_submit = True
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
